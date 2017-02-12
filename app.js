@@ -27,6 +27,16 @@ const ProductList = React.createClass({
     });
     this.updateState();
   },
+
+  handleDownVote: function(productId){
+    Data.forEach((el)=>{
+      if(el.id === productId){
+      el.votes = el.votes - 1;
+      return;
+    }
+    });
+    this.updateState();
+  },
   render: function(){
     const products = this.state.products.map((product) => {
     return(
@@ -65,9 +75,12 @@ const Product = React.createClass({
         <div className="middle aligned content">
         <div className="header">
         <a onClick={this.handleUpVote}>
-        <i className="large caret icon up icon"></i>
+        <i className="large caret up icon"></i>
         </a>
-        {this.props.votes}
+        <a onClick={this.handleDownVote}>
+        <i className="large caret down icon"></i>
+        </a>
+            {this.props.votes}
         </div>
         <div className="description">
         <a href={this.props.url}> {this.props.title} </a>
