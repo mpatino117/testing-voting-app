@@ -28,9 +28,11 @@ const ProductList = React.createClass({
     this.updateState();
   },
 
-  handleDownVote: function(productId){
+  handleProductDownVote: function(productId){
     Data.forEach((el)=>{
       if(el.id === productId){
+        console.log(productId  + " was down voted HOMIE.");
+
       el.votes = el.votes - 1;
       return;
     }
@@ -49,7 +51,8 @@ const ProductList = React.createClass({
             votes={product.votes}
             submitter_avatar_url={product.submitter_avatar_url}
             product_image_url={product.product_image_url}
-            onVote={this.handleProductUpVote}
+            onVoteUp={this.handleProductUpVote}
+            onVoteDown={this.handleProductDownVote}
             />
     );
 });
@@ -64,7 +67,10 @@ return (
 
 const Product = React.createClass({
   handleUpVote: function(){
-    this.props.onVote(this.props.id);
+    this.props.onVoteUp(this.props.id);
+  },
+  handleDownVote: function(){
+    this.props.onVoteDown(this.props.id);
   },
   render: function() {
     return(
