@@ -6,7 +6,6 @@ const ProductList = React.createClass({
     };
   },
 
-
   componentDidMount: function(){
     this.updateState();
   },
@@ -18,9 +17,16 @@ const ProductList = React.createClass({
     this.setState({ products: products });
   },
 
-    handleProductUpVote: function(productId){
-      console.log(productId  + " was upvoted HOMIE.");
-    },
+  handleProductUpVote: function(productId){
+    Data.forEach((el) => {
+      if(el.id === productId){
+        console.log(productId  + " was upvoted HOMIE.");
+        el.votes = el.votes + 1;
+        return;
+      }
+    });
+    this.updateState();
+  },
   render: function(){
     const products = this.state.products.map((product) => {
     return(
